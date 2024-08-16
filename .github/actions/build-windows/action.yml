@@ -25,12 +25,12 @@ runs:
         dotnet-version: 8.x
     - uses: actions/cache@v4
       with:
-      path: |
-        ~/.nuget/packages
-        !~/.nuget/packages/unwanted
-      key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
-      restore-keys: |
-        ${{ runner.os }}-nuget-
+        path: |
+          ~/.nuget/packages
+          !~/.nuget/packages/unwanted
+        key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-nuget-
     - run: dotnet restore --locked-mode
       name: Restore packages
       shell: pwsh
