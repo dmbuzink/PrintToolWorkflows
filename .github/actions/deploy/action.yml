@@ -8,6 +8,7 @@ inputs:
     required: true
     description: 'The name simplified'
 runs:
+  environment: "printtool_${{ inputs.OS_NAME }}"
   using: 'composite'
   steps:
     - uses: actions/download-artifact@v4
