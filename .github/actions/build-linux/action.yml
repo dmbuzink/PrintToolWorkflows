@@ -18,7 +18,7 @@ runs:
           with:
             dotnet-version: 8.x
             cache: true
-            cache-dependency-path: PrintTool/packes.lock.json
+            cache-dependency-path: PrintTool/packages.lock.json
         - run: dotnet restore --locked-mode
           name: Restore packages
           shell: pwsh
