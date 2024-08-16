@@ -1,0 +1,15 @@
+name: 'Deploy for Linux'
+description: 'Creates a Linux build'
+runs:
+    using: 'composite'
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: PrintToolLinux
+          path: ${{github.workspace}}/artifacts
+      - run: chmod 777 ${{github.workspace}}/artifacts/PrintTool
+        name: Giving permissions to project folder
+        shell: pwsh
+      - run: ${{github.workspace}}/artifacts/PrintTool "Hello" "world" "linux"
+        name: Run print tool
+        shell: pwsh
