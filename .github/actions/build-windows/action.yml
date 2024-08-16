@@ -20,14 +20,17 @@ runs:
       name: Set up dotnet
       with: 
         global-json-file: global.json
-        cache: true
-        cache-dependency-path: | 
-            PrintTool/packages.lock.json
-            PrintTool.UnitTests/packages.lock.json
     - uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 8.x
-        cache: true
+    - uses: actions/cache@v4
+      with:
+      path: |
+        ~/.nuget/packages
+        !~/.nuget/packages/unwanted
+      key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
+      restore-keys: |
+        ${{ runner.os }}-nuget-
     - run: dotnet restore --locked-mode
       name: Restore packages
       shell: pwsh
