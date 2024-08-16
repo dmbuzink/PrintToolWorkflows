@@ -13,12 +13,12 @@ runs:
         - uses: actions/checkout@v4   
           name: Checkout
         - uses: actions/setup-dotnet@v4
-          name: Set up dotnet
-        - uses: actions/setup-dotnet@v4
           with:
             dotnet-version: 8.x
             cache: true
-            cache-dependency-path: PrintTool/packages.lock.json
+            cache-dependency-path: | 
+            PrintTool/packages.lock.json
+            PrintTool.UnitTests/packages.lock.json
         - run: dotnet restore --locked-mode
           name: Restore packages
           shell: pwsh
