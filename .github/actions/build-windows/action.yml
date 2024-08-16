@@ -22,7 +22,7 @@ runs:
         global-json-file: global.json
     - uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: 6.x
+        dotnet-version: 8.x
         cache: true
     - run: dotnet restore --locked-mode
       name: Restore packages
