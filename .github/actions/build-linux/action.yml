@@ -1,0 +1,35 @@
+name: 'Build for Linux' 
+description: 'Creates a Linux build'
+inputs:
+    BUILD_CONFIG:
+        required: true
+        description: 'Build configuration, e.g., Release'
+    BUILD_ARCHITECTURE:
+        required: true
+        description: 'Build architecture, e.g., x64'
+runs:
+    using: 'composite'
+    steps:  
+        - uses: actions/checkout@v4   
+          name: Checkout
+        - uses: actions/setup-dotnet@v4
+          name: Set up dotnet
+        - run: dotnet restore --locked-mode
+          name: Restore packages
+          shell: pwsh
+        - run: dotnet build ${{github.workspace}}/PrintTool/PrintTool.csproj --no-restore -c ${{ env.BUILD_CONFIG }} -a ${{ env.BUILD_ARCHITECTURE}}
+          name: Build project for release
+          shell: pwsh
+        - run: dotnet build ${{github.workspace}}/PrintTool.UnitTests/PrintTool.UnitTests.csproj --no-restore -c ${{ env.BUILD_CONFIG }} -a ${{ env.BUILD_ARCHITECTURE}}
+          name: Build test project
+          shell: pwsh
+        - run: dotnet test ${{github.workspace}}/PrintTool.UnitTests/PrintTool.UnitTests.csproj --no-restore -c ${{ env.BUILD_CONFIG }} -a ${{ env.BUILD_ARCHITECTURE}}
+          name: Run unit tests
+          shell: pwsh
+        - run: dotnet publish ${{github.workspace}}/PrintTool/PrintTool.csproj -a x64 --output ${{github.workspace}}/artifacts/PrintToolLinux --no-restore -c ${{ env.BUILD_CONFIG }}
+          name: Publish project and upload to artifact
+          shell: pwsh
+        - uses: actions/upload-artifact@v4
+          with:
+            name: PrintToolLinux
+            path: '${{github.workspace}}/artifacts/PrintToolLinux'
