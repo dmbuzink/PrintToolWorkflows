@@ -1,0 +1,15 @@
+name: 'Deploy'
+description: 'Deploys the specified build'
+inputs:
+  OS_VERSION:
+    required: true
+    description: 'OS version'
+  OS_NAME:
+    required: true
+    description: 'The name simplified'
+jobs:
+  using: 'composite'
+    build:
+      name: Build ''
+        
+# Create composite action that calls build and deploy and passes values on. Then wrap in refactor the matrix around this
