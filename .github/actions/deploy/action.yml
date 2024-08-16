@@ -1,15 +1,33 @@
-name: 'Deploy for Linux'
-description: 'Creates a Linux build'
+name: 'Deploy'
+description: 'Deploys the specified build'
+inputs:
+  OS_VERSION:
+    required: true
+    description: 'OS version'
+  OS_NAME:
+    required: true
+    description: 'The name simplified'
 runs:
-    using: 'composite'
-    steps:
-      - uses: actions/download-artifact@v4
-        with:
-          name: PrintToolLinux
-          path: ${{github.workspace}}/artifacts
-      - run: chmod 777 ${{github.workspace}}/artifacts/PrintTool
-        name: Giving permissions to project folder
-        shell: pwsh
-      - run: ${{github.workspace}}/artifacts/PrintTool "Hello" "world" "linux"
-        name: Run print tool
-        shell: pwsh
+  using: 'composite'
+  steps:
+    - uses: actions/download-artifact@v4
+      with:
+        name: "PrintTool${{ inputs.OS_NAME }}"
+        path: ${{github.workspace}}/artifacts
+    - run: chmod 777 ${{github.workspace}}/artifacts/PrintTool
+      if: ${{ inputs.OS_NAME == "Linux" }}
+      name: Giving permissions to project folder
+      shell: pwsh
+        
+    # Run Linux variant
+    - run: ${{github.workspace}}/artifacts/PrintTool "Hello" "world" "linux"
+      if: ${{ inputs.OS_NAME == "Linux" }}
+      name: "Run print tool (${{ inputs.OS_NAME }})"
+      shell: pwsh
+      
+      # Run Windows variant
+    - run: ${{github.workspace}}/artifacts/PrintTool.exe "Hello" "world" "windows"
+      if: $${{ inputs.OS_NAME == "Windows" }}
+      name: "Run print tool (${{ inputs.OS_NAME }})"
+      shell: pwsh
+        
