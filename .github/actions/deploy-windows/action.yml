@@ -1,0 +1,12 @@
+name: 'Deploys for Windows'
+description: 'Deploys the Windows build'
+runs:
+    using: 'composite'
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: PrintToolWindows
+          path: ${{github.workspace}}/artifacts
+      - run: ${{github.workspace}}/artifacts/PrintTool.exe "Hello" "world" "windows"
+        name: Run print tool
+        shell: pwsh
