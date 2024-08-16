@@ -38,7 +38,7 @@ runs:
     - run: dotnet test ${{github.workspace}}/PrintTool.UnitTests/PrintTool.UnitTests.csproj --no-restore -c ${{ inputs.BUILD_CONFIG }} -a ${{ inputs.BUILD_ARCHITECTURE}}
       name: Run unit tests
       shell: pwsh
-    - run: dotnet publish ${{github.workspace}}/PrintTool/PrintTool.csproj -a x64 --output ${{github.workspace}}/artifacts/PrintTool{{ inputs.OS_NAME }} --no-restore -c ${{ inputs.BUILD_CONFIG }}
+    - run: dotnet publish ${{github.workspace}}/PrintTool/PrintTool.csproj -a x64 --output ${{github.workspace}}/artifacts/PrintTool${{ inputs.OS_NAME }} --no-restore -c ${{ inputs.BUILD_CONFIG }}
       name: Publish project and upload to artifact
       shell: pwsh
     - uses: actions/upload-artifact@v4
