@@ -14,6 +14,10 @@ runs:
           name: Checkout
         - uses: actions/setup-dotnet@v4
           name: Set up dotnet
+        - uses: actions/setup-dotnet@v4
+          with:
+            dotnet-version: 8.x
+            cache: true
         - run: dotnet restore --locked-mode
           name: Restore packages
           shell: pwsh
