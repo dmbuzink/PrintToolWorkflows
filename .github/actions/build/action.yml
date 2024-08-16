@@ -1,5 +1,5 @@
-name: "Build for ${{ inputs.OS_NAME }}"
-description: "Creates a ${{ inputs.OS_NAME }} build"
+name: "Build"
+description: "Creates a build"
 inputs:
   BUILD_CONFIG:
     required: true
