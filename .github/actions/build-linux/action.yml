@@ -19,6 +19,7 @@ runs:
             cache-dependency-path: | 
                 PrintTool/packages.lock.json
                 PrintTool.UnitTests/packages.lock.json
+          name: Setup dotnet and cache packages
         - run: dotnet restore --locked-mode
           name: Restore packages
           shell: pwsh
