@@ -15,19 +15,19 @@ runs:
         name: "PrintTool${{ inputs.OS_NAME }}"
         path: ${{github.workspace}}/artifacts
     - run: chmod 777 ${{github.workspace}}/artifacts/PrintTool
-      if: ${{ inputs.OS_NAME == "Linux" }}
+      if: ${{ inputs.OS_NAME == 'Linux' }}
       name: Giving permissions to project folder
       shell: pwsh
         
     # Run Linux variant
     - run: ${{github.workspace}}/artifacts/PrintTool "Hello" "world" "linux"
-      if: ${{ inputs.OS_NAME == "Linux" }}
+      if: ${{ inputs.OS_NAME == 'Linux' }}
       name: "Run print tool (${{ inputs.OS_NAME }})"
       shell: pwsh
       
       # Run Windows variant
     - run: ${{github.workspace}}/artifacts/PrintTool.exe "Hello" "world" "windows"
-      if: $${{ inputs.OS_NAME == "Windows" }}
+      if: ${{ inputs.OS_NAME == 'Windows' }}
       name: "Run print tool (${{ inputs.OS_NAME }})"
       shell: pwsh
         
