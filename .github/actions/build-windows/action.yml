@@ -20,6 +20,10 @@ runs:
       name: Set up dotnet
       with: 
         global-json-file: global.json
+        cache: true
+        cache-dependency-path: | 
+            PrintTool/packages.lock.json
+            PrintTool.UnitTests/packages.lock.json
     - uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 8.x
